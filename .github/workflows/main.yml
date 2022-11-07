@@ -1,0 +1,48 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+
+name: Java CI with maven wrapper
+
+on:
+  push:
+    branches: [ "main","feature-*" ]
+  pull_request:
+    branches: [ "develop" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: set commit status pending
+      uses: myrotvorets/set-commit-status-action@1.1.5
+      with:
+        status: "pending"
+    - name: Compile code
+      run: ./mvnw clean compile -e
+    - name: Test code
+      run: ./mvnw clean test -e
+    - name: Package code
+      run: ./mvnw clean package -e
+    - name: set commit status
+      uses: myrotvorets/set-commit-status-action@1.1.5
+      with:
+        status: ${{ job.status }}
+      
+     
+     
