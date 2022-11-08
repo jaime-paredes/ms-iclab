@@ -42,6 +42,9 @@ jobs:
       uses: myrotvorets/set-commit-status-action@1.1.5
       with:
         status: ${{ job.status }}
-      
-     
-     
+    - name: Notificar por SLACK
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_FOOTER: Grupo 1 Diplomado DevOps 2022
+        SLACK_TITLE: Mensaje
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
