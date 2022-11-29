@@ -1,6 +1,6 @@
 
 def last_stage
-def mavenSettingsFile = "${pwd()}/.m2/settings.xml"
+def mavenSettingsFile
 
 pipeline {
     agent any
@@ -24,6 +24,7 @@ pipeline {
         steps {
           script {
             last_stage = env.STAGE_NAME
+            mavenSettingsFile = "${pwd()}/.m2/settings.xml"
           }            
           withSonarQubeEnv(credentialsId: "access_token_sq", installationName: "MySonar") {
             sh "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar -Dsonar.target=sonar.java.binaries"
