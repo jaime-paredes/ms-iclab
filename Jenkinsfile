@@ -52,11 +52,17 @@ pipeline {
         }
         steps {
           echo "Maven release"
-          git credentialsId: 'jenkins-git', url: 'git@github.com:jaime-paredes/ms-iclab.git', branch: "${env.BRANCH_NAME}"
-          script {
+
+          withCredentials([sshUserPrivateKey(credentialsId: 'jenkins-git', keyFileVariable: 'JENKINS_GIT', usernameVariable: 'jaime-paredes')]) {
             lastStage = env.STAGE_NAME
             sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false release:prepare release:perform'
           }
+
+          // git credentialsId: 'jenkins-git', url: 'git@github.com:jaime-paredes/ms-iclab.git', branch: "${env.BRANCH_NAME}"
+          // script {
+          //   lastStage = env.STAGE_NAME
+          //   sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false release:prepare release:perform'
+          // }
         }
       }
 
