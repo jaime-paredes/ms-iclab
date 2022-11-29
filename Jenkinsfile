@@ -8,6 +8,12 @@ pipeline {
     }
     stages {
 
+      stage("Clean") {
+        steps {
+          cleanWs()
+        }
+      }
+
       stage("SonarQube") {
         when{
           expression{
@@ -49,10 +55,7 @@ pipeline {
           echo "GIT Tag"
           script {
             last_stage = env.STAGE_NAME
-
-            withCredentials([gitUsernamePassword(credentialsId: 'jaimeparedes', gitToolName: 'Default')]) {
-              sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false -DscmCommentPrefix="[skip ci]" -DpushChanges=false release:prepare release:perform'
-            }
+            sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false -DscmCommentPrefix="[skip ci]" -DpushChanges=false release:prepare release:perform'
           }
         }
       }
