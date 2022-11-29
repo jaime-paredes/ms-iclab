@@ -69,7 +69,7 @@ pipeline {
           echo "Get back to develop"
           script {
             lastStage = env.STAGE_NAME
-            sh "git branch -r"
+            sh "git fetch --all"
             sh "git checkout develop"
           }
         }    
