@@ -13,36 +13,36 @@ pipeline {
     }
     stages {
 
-      stage("SonarQube") {
-        when {
-          expression{
-            "${env.BRANCH_NAME}" != "master"
-          }
-        }
-        steps {
-          script {
-            lastStage = env.STAGE_NAME
-          }            
-          withSonarQubeEnv(credentialsId: "access_token_sq", installationName: "MySonar") {
-            sh "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar -Dsonar.target=sonar.java.binaries"
-          }
-        }
-      }
+      // stage("SonarQube") {
+      //   when {
+      //     expression{
+      //       "${env.BRANCH_NAME}" != "master"
+      //     }
+      //   }
+      //   steps {
+      //     script {
+      //       lastStage = env.STAGE_NAME
+      //     }            
+      //     withSonarQubeEnv(credentialsId: "access_token_sq", installationName: "MySonar") {
+      //       sh "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar -Dsonar.target=sonar.java.binaries"
+      //     }
+      //   }
+      // }
 
-      stage("Maven build") {
-        when {
-          expression {
-            "${env.BRANCH_NAME}" != "master"
-          }
-        }
-        steps{
-          echo "Maven build"
-          script {
-            lastStage = env.STAGE_NAME
-            sh "mvn clean package"
-          }
-        }
-      }
+      // stage("Maven build") {
+      //   when {
+      //     expression {
+      //       "${env.BRANCH_NAME}" != "master"
+      //     }
+      //   }
+      //   steps{
+      //     echo "Maven build"
+      //     script {
+      //       lastStage = env.STAGE_NAME
+      //       sh "mvn clean package"
+      //     }
+      //   }
+      // }
 
       stage("Maven release") {
         when {
@@ -69,6 +69,7 @@ pipeline {
           echo "Get back to develop"
           script {
             lastStage = env.STAGE_NAME
+            sh "git branch -r"
             sh "git checkout develop"
           }
         }    
