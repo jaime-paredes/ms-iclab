@@ -67,7 +67,6 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<!-- Keep changes in the local repo, push will be done afterwards -->
 					<pushChanges>false</pushChanges>
-					<localCheckout>true</localCheckout>
 					<!-- Use a better name for the tag -->
 					<tagNameFormat>v@{project.version}</tagNameFormat>
 				</configuration>
