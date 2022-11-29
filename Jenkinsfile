@@ -1,5 +1,6 @@
 
 def last_stage
+def mavenSettingsFile = "${pwd()}/.m2/settings.xml"
 
 pipeline {
     agent any
@@ -57,7 +58,6 @@ pipeline {
             last_stage = env.STAGE_NAME
             //sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false -DscmCommentPrefix="[skip ci]" -DpushChanges=false release:prepare release:perform'
           }
-          def mavenSettingsFile = "${pwd()}/.m2/settings.xml"
           wrap([$class: 'ConfigFileBuildWrapper',
               managedFiles: [
                   [fileId: 'c08429c7-6ee8-4597-9247-e7e40a427787', targetLocation: "${mavenSettingsFile}"]]]) {
