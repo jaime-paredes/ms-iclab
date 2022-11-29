@@ -4,7 +4,7 @@ def releaseVersion = "0.0.8"
 def devVersion = "0.0.9-SNAPSHOT"
 
 // Provide an optional comment prefix, e.g. for your bug tracking system
-def scmCommentPrefix = "Grupo-5: "
+def scmCommentPrefix = 'Grupo-5: '
 
 pipeline {
     agent any
