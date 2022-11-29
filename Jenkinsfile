@@ -8,11 +8,11 @@ pipeline {
     }
     stages {
 
-      stage("Clean") {
-        steps {
-          cleanWs()
-        }
-      }
+      // stage("Clean") {
+      //   steps {
+      //     cleanWs()
+      //   }
+      // }
 
       stage("SonarQube") {
         when{
