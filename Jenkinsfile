@@ -55,7 +55,7 @@ pipeline {
           script {
             lastStage = env.STAGE_NAME
             // sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=https://github.com/jaime-paredes/ms-iclab.git -Dresume=false -DscmCommentPrefix="[skip ci]" release:prepare release:perform'
-            sh 'mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmCommentPrefix" -DreleaseVersion=$releaseVersion -DdevelopmentVersion=$developmentVersion'
+            sh 'mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="${scmCommentPrefix}" -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}'
           }
         }
       }
