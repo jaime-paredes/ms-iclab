@@ -54,8 +54,8 @@ pipeline {
           echo "Maven release"
           script {
             lastStage = env.STAGE_NAME
-            echo 'mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="'+scmCommentPrefix+'" -DreleaseVersion='+releaseVersion+' -DdevelopmentVersion='+devVersion
-            sh 'mvn --batch-mode release:prepare release:perform -DreleaseVersion='+releaseVersion+' -DdevelopmentVersion='+devVersion
+            echo 'mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="'+scmCommentPrefix+'" -DreleaseVersion='+releaseVersion+' -DdevelopmentVersion='+devVersion+' -DtagNameFormat=V@{project.version}'
+            sh 'mvn --batch-mode release:prepare release:perform -DreleaseVersion='+releaseVersion+' -DdevelopmentVersion='+devVersion+' -DtagNameFormat=V@{project.version}'
           }
         }
       }
