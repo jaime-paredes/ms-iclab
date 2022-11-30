@@ -10,13 +10,20 @@
 	</parent>
 	<groupId>com.devopsusach2020</groupId>
 	<artifactId>DevOpsUsach2020</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>DevOpsUsach2020</name>
 	<description>Proyecto de ejemplo para el desarrollo del diplomado DevOps Universidad de Santiago de Chile 2020</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.scm.id>Github</project.scm.id>
 	</properties>
+
+	<scm>
+		<connection>scm:git:https://github.com/jaime-paredes/ms-iclab.git</connection>
+		<developerConnection>scm:git:${gitRepositoryUrl}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -54,29 +61,30 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.amashchenko.maven.plugin</groupId>
-				<artifactId>gitflow-maven-plugin</artifactId>
-				<version>1.19.0</version>
-				<configuration>
-					<installProject>false</installProject>
-					<verbose>false</verbose>
-					<keepBranch>true</keepBranch>
-					<skipTestProject>true</skipTestProject>
+			<groupId>com.amashchenko.maven.plugin</groupId>
+			<artifactId>gitflow-maven-plugin</artifactId>
+			<version>1.14.0</version>
+			<configuration>
 
-					<gitFlowConfig>
-						<productionBranch>master</productionBranch>
-						<developmentBranch>develop</developmentBranch>
-						<featureBranchPrefix>feature-</featureBranchPrefix>
-						<releaseBranchPrefix>release-</releaseBranchPrefix>
-						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
-						<versionTagPrefix></versionTagPrefix>
-						<origin>origin</origin>
-					</gitFlowConfig>
-					<commitMessages>
-						<!-- since 1.2.1, see Customizing commit messages -->
-					</commitMessages>
-				</configuration>
-			</plugin>			
+				<installProject>false</installProject>
+				<verbose>false</verbose>
+				<keepBranch>true</keepBranch>
+				<skipTestProject>true</skipTestProject>
+
+				<gitFlowConfig>
+					<productionBranch>master</productionBranch>
+					<developmentBranch>develop</developmentBranch>
+					<featureBranchPrefix>feature/</featureBranchPrefix>
+					<releaseBranchPrefix>release/</releaseBranchPrefix>
+					<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+					<versionTagPrefix>V</versionTagPrefix>
+					<origin>origin</origin>
+				</gitFlowConfig>
+				<commitMessages>
+					<!-- since 1.2.1, see Customizing commit messages -->
+				</commitMessages>
+			</configuration>
+			</plugin>
 		</plugins>
 		<directory>build</directory>
 	</build>
