@@ -2,13 +2,6 @@ def lastStage
 def releaseVersion = "0.0.8"
 def devVersion = "0.0.9-SNAPSHOT"
 
-<<<<<<< HEAD
-=======
-def lastStage
-def releaseVersion = "0.0.8"
-def devVersion = "0.0.9-SNAPSHOT"
-
->>>>>>> release/0.0.1
 // Provide an optional comment prefix, e.g. for your bug tracking system
 def scmCommentPrefix = 'Grupo-5: '
 
@@ -49,7 +42,6 @@ pipeline {
       //     }
       //   }
       // }
-<<<<<<< HEAD
 
       stage("Maven release") {
         when {
@@ -61,26 +53,6 @@ pipeline {
           echo "Maven release"
           script {
             lastStage = env.STAGE_NAME
-=======
-
-      stage("Maven release") {
-        when {
-          expression{
-            "${env.BRANCH_NAME}" ==~ /release\/.*/
-          }
-        }
-        steps {
-          echo "Maven release"
-
-          withCredentials([sshUserPrivateKey(credentialsId: 'jenkins-git', keyFileVariable: 'JENKINS_GIT', usernameVariable: 'jaime-paredes')]) {
-            sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true -DlocalCheckout=false" -DlocalCheckout=false -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=https://github.com/jaime-paredes/ms-iclab.git -Dresume=false release:prepare release:perform'
-          }
-
-          // git credentialsId: 'jenkins-git', url: 'git@github.com:jaime-paredes/ms-iclab.git', branch: "${env.BRANCH_NAME}"
-          script {
-            lastStage = env.STAGE_NAME
-            // sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false release:prepare release:perform'
->>>>>>> release/0.0.1
           }
         }
       }
@@ -95,11 +67,6 @@ pipeline {
           echo "Get back to develop"
           script {
             lastStage = env.STAGE_NAME
-<<<<<<< HEAD
-=======
-            sh "git fetch --all"
-            // sh "git checkout develop"
->>>>>>> release/0.0.1
           }
         }    
       }
