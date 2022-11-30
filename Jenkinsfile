@@ -46,13 +46,16 @@ pipeline {
       stage("Maven release") {
         when {
           expression{
-            "${env.BRANCH_NAME}" ==~ /release\/.*/
+            "${env.BRANCH_NAME}" ==~ /release-.*/
           }
         }
-        steps{
+        steps {
           echo "Maven release"
+
+          // git credentialsId: 'jenkins-git', url: 'git@github.com:jaime-paredes/ms-iclab.git', branch: "${env.BRANCH_NAME}"
           script {
             lastStage = env.STAGE_NAME
+            // sh 'mvn -B -Darguments="-Dmaven.test.skip=true -Dmaven.deploy.skip=true" -DtagNameFormat="V@{project.version}" -DgitRepositoryUrl=git@github.com:jaime-paredes/ms-iclab.git -Dresume=false release:prepare release:perform'
           }
         }
       }
@@ -60,13 +63,15 @@ pipeline {
       stage("Get back to develop") {
         when {
           expression {
-            "${env.BRANCH_NAME}" ==~ /release\/.*/
+            "${env.BRANCH_NAME}" ==~ /release-.*/
           }
         }
         steps {
           echo "Get back to develop"
           script {
             lastStage = env.STAGE_NAME
+            sh "git fetch --all"
+            // sh "git checkout develop"
           }
         }    
       }
