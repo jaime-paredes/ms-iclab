@@ -68,7 +68,7 @@
 
 				<installProject>false</installProject>
 				<verbose>false</verbose>
-				<keepBranch>true</keepBranch>
+				<keepBranch>false</keepBranch>
 				<skipTestProject>true</skipTestProject>
 
 				<gitFlowConfig>
